@@ -1,0 +1,10 @@
+Guia de publicação GitHub Pages
+
+1. Faça commit e push para o branch `main`.
+2. No GitHub, abra o repositório e acesse `Settings > Pages`.
+3. Em `Build and deployment`, selecione `main` e `root`.
+4. Salve e aguarde alguns minutos.
+5. Para publicar artigos, edite `data/posts.json`.
+6. Para compartilhar arquivos, adicione arquivos em `uploads/` e registre em `data/files.json`.
+
+Dica: você pode atualizar o conteúdo do site diretamente no GitHub e o GitHub Pages reflete essas mudanças rapidamente.

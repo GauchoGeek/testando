@@ -301,10 +301,197 @@ body {
   color: rgba(255, 255, 255, 0.64);
 }
 
+.hero {
+  background-attachment: fixed;
+}
+
+.radio,
+.arquivos,
+.admin {
+  padding: 4rem 0 2rem;
+  background: linear-gradient(180deg, rgba(5, 7, 19, 0.96), rgba(3, 5, 14, 1));
+}
+
+.radio-card,
+.admin-card,
+.contato-card {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.25rem;
+  background: rgba(8, 10, 22, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+}
+
+.radio-card p,
+.admin-card p,
+.file-card p,
+.contato-card p {
+  color: #d6dcff;
+  line-height: 1.8;
+}
+
+.radio-card form,
+.admin-box form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.radio-card input,
+.admin-box input {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 20, 45, 0.96);
+  color: #f3f7ff;
+  font-size: 1rem;
+}
+
+.radio-player {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.radio-player audio {
+  width: 100%;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.radio-status,
+.admin-hint {
+  color: #9fb6ff;
+  font-size: 0.95rem;
+}
+
+.file-grid {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.file-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.75rem;
+  border-radius: 26px;
+  background: rgba(12, 16, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+}
+
+.file-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.file-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #8ca2ff;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+}
+
+.admin-box {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border-radius: 24px;
+  background: rgba(17, 22, 44, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-summary {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+}
+
+.admin-summary ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #dde2ff;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.empty-state {
+  color: #9daafc;
+  text-align: center;
+  width: 100%;
+  padding: 2rem;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 20% 20%, rgba(255, 120, 180, 0.12), transparent 0%),
+    radial-gradient(circle at 80% 25%, rgba(90, 170, 255, 0.1), transparent 0%),
+    radial-gradient(circle at 50% 80%, rgba(180, 110, 255, 0.08), transparent 0%);
+}
+
 @media (max-width: 960px) {
   .sobre-grid,
-  .post-grid {
+  .post-grid,
+  .file-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .hero {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .hero-text {
+    font-size: 1rem;
+  }
+
+  .sobre-grid,
+  .post-grid,
+  .file-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    padding: 0 1.5rem;
+  }
+
+  .filters,
+  .file-grid,
+  .radio-card,
+  .admin-card,
+  .contato-card {
+    padding: 0 1.5rem;
+  }
+
+  .admin-actions {
+    flex-direction: column;
   }
 }
 

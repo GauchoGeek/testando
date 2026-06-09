@@ -18,23 +18,26 @@
         <div class="brand">GauchoGeek</div>
         <nav class="nav-links">
           <a href="#sobre">Sobre</a>
+          <a href="#radio">Rádio</a>
           <a href="#artigos">Artigos</a>
+          <a href="#arquivos">Arquivos</a>
+          <a href="#admin">Admin</a>
           <a href="#contato">Contato</a>
         </nav>
       </header>
 
       <main>
-        <section class="hero" aria-label="Apresentação do site">
+        <section class="hero" id="home" aria-label="Apresentação do site">
           <div class="hero-overlay"></div>
           <div class="hero-content">
             <p class="eyebrow">Portfólio profissional em estilo anime</p>
             <h1>Design 4K com tema Itachi</h1>
             <p class="hero-text">
-              Site pessoal com visual premium, publicações, temas modernos e um painel de artigos que funciona com dados mantidos no GitHub.
+              Site com parallax, rádio ao vivo, painel admin e área de compartilhamento de arquivos. Publique seus próprios artigos e arquivos através do GitHub.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#artigos">Ver Artigos</a>
-              <a class="btn btn-secondary" href="#contato">Entrar em Contato</a>
+              <a class="btn btn-primary" href="#radio">Tocar Rádio</a>
+              <a class="btn btn-secondary" href="#admin">Painel Admin</a>
             </div>
           </div>
         </section>
@@ -42,20 +45,38 @@
         <section class="sobre" id="sobre">
           <div class="section-header">
             <span>Sobre</span>
-            <h2>Um site profissional para sua marca pessoal</h2>
+            <h2>Um site pessoal completo para sua presença online</h2>
           </div>
           <div class="sobre-grid">
             <div class="sobre-card">
-              <h3>Visual cinematográfico</h3>
-              <p>Layout escuro com tipografia elegante e foco em apresentação de conteúdo de alto impacto.</p>
+              <h3>Parallax cinematográfico</h3>
+              <p>Efeito de profundidade com fundo Itachi e camadas animadas para criar uma navegação sofisticada.</p>
             </div>
             <div class="sobre-card">
-              <h3>Artigos e notícias</h3>
-              <p>Publicações fáceis de atualizar usando um arquivo JSON simples — um banco de dados leve dentro do GitHub.</p>
+              <h3>Rádio ao vivo</h3>
+              <p>Insira sua stream de áudio e ouça direto no site em qualquer dispositivo compatível.</p>
             </div>
             <div class="sobre-card">
-              <h3>Deploy no GitHub Pages</h3>
-              <p>O site pode ser hospedado diretamente no GitHub com GitHub Pages, sem servidor adicional.</p>
+              <h3>Painel admin com senha</h3>
+              <p>Área reservada para você acessar informações de publicação e controlar o conteúdo do site.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="radio" id="radio">
+          <div class="section-header">
+            <span>Rádio</span>
+            <h2>Sua stream ao vivo no site</h2>
+          </div>
+          <div class="radio-card">
+            <p>Cole o link da sua stream no campo abaixo e pressione tocar. Use streams no formato MP3 / AAC para melhor compatibilidade.</p>
+            <form id="radioForm">
+              <input id="radioUrlInput" type="url" placeholder="https://stream.exemplo.com/stream.mp3" aria-label="URL da rádio" required />
+              <button class="btn btn-primary" type="submit">Tocar rádio</button>
+            </form>
+            <div class="radio-player">
+              <audio id="audioPlayer" controls></audio>
+              <p class="radio-status" id="radioStatus">Cole a stream e clique em tocar para começar.</p>
             </div>
           </div>
         </section>
@@ -76,13 +97,54 @@
           <div id="postsList" class="post-grid"></div>
         </section>
 
+        <section class="arquivos" id="arquivos">
+          <div class="section-header">
+            <span>Arquivos</span>
+            <h2>Download rápido de conteúdos e guias</h2>
+          </div>
+          <div id="fileShareList" class="file-grid"></div>
+        </section>
+
+        <section class="admin" id="admin">
+          <div class="section-header">
+            <span>Admin</span>
+            <h2>Painel administrativo protegido por senha</h2>
+          </div>
+          <div class="admin-card">
+            <div id="adminLogin" class="admin-box">
+              <h3>Entrar no painel</h3>
+              <p>Use a senha correta para exibir as instruções e o painel administrativo.</p>
+              <form id="adminForm">
+                <input id="adminPassword" type="password" placeholder="Senha admin" aria-label="Senha admin" required />
+                <button class="btn btn-primary" type="submit">Entrar</button>
+              </form>
+              <p class="admin-hint">Senha padrão: <strong>GauchoAdmin2026</strong></p>
+            </div>
+            <div id="adminPanel" class="admin-box hidden">
+              <h3>Painel admin</h3>
+              <p>Bem-vindo ao painel. Aqui você vê as instruções para publicar artigos e arquivos diretamente no GitHub.</p>
+              <div class="admin-actions">
+                <a class="btn btn-secondary" href="https://github.com/GauchoGeek/testando" target="_blank" rel="noreferrer">Abrir repositório</a>
+                <button class="btn btn-primary" type="button" id="adminLogout">Sair</button>
+              </div>
+              <div class="admin-summary">
+                <ul>
+                  <li>Publicar artigos: edite o arquivo <code>data/posts.json</code>.</li>
+                  <li>Publicar arquivos: coloque novos arquivos em <code>uploads/</code> e atualize <code>data/files.json</code>.</li>
+                  <li>Para ativar o site no ar, basta usar GitHub Pages nas configurações do repositório.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="contato" id="contato">
           <div class="section-header">
             <span>Contato</span>
             <h2>Vamos levar o projeto ao próximo nível</h2>
           </div>
           <div class="contato-card">
-            <p>Para publicar mais artigos e atualizar o conteúdo, basta editar o arquivo <code>data/posts.json</code> no repositório.</p>
+            <p>Para publicar mais artigos e atualizar o conteúdo, edite os arquivos dentro de <code>data/</code> no repositório.</p>
             <p>Email: <a href="mailto:contato@gauchogeek.com">contato@gauchogeek.com</a></p>
             <p>GitHub: <a href="https://github.com/GauchoGeek" target="_blank" rel="noreferrer">@GauchoGeek</a></p>
           </div>

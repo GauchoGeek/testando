@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Guia de publicação para GitHub Pages",
+    "description": "Passo a passo para publicar seus artigos e arquivos no site usando GitHub.",
+    "category": "Manual",
+    "size": "12 KB",
+    "url": "uploads/guia-publicacao.txt"
+  },
+  {
+    "title": "Exemplo de arquivo compartilhado",
+    "description": "Um arquivo de exemplo para testar a área de download do site.",
+    "category": "Exemplo",
+    "size": "4 KB",
+    "url": "uploads/exemplo-arquivo.txt"
+  }
+]

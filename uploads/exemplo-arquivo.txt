@@ -1,0 +1,3 @@
+Este é um arquivo de exemplo para o compartilhamento de arquivos no site.
+
+Adicione seus próprios arquivos na pasta `uploads/` e atualize `data/files.json` para que eles apareçam aqui.
