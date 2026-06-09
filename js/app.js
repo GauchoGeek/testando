@@ -2,6 +2,12 @@ const postsList = document.getElementById('postsList');
 const searchInput = document.getElementById('searchInput');
 const categorySelect = document.getElementById('categorySelect');
 const fileShareList = document.getElementById('fileShareList');
+const uploadForm = document.getElementById('uploadForm');
+const uploadTitle = document.getElementById('uploadTitle');
+const uploadDescription = document.getElementById('uploadDescription');
+const uploadCategory = document.getElementById('uploadCategory');
+const uploadFileInput = document.getElementById('uploadFileInput');
+const localUploadList = document.getElementById('localUploadList');
 const radioForm = document.getElementById('radioForm');
 const radioUrlInput = document.getElementById('radioUrlInput');
 const audioPlayer = document.getElementById('audioPlayer');
@@ -13,6 +19,7 @@ const adminPanel = document.getElementById('adminPanel');
 const adminLogout = document.getElementById('adminLogout');
 
 let posts = [];
+let localUploads = [];
 const adminPassword = 'GauchoAdmin2026';
 
 function formatDate(dateString) {
@@ -135,13 +142,124 @@ async function loadFiles() {
   try {
     const response = await fetch('data/files.json');
     const files = await response.json();
-    renderFiles(files);
+    renderFiles([...files, ...localUploads]);
   } catch (error) {
     if (fileShareList) {
       fileShareList.innerHTML = '<p class="empty-state">Falha ao carregar os arquivos. Verifique se o arquivo <code>data/files.json</code> existe.</p>';
     }
     console.error('Erro ao carregar arquivos:', error);
   }
+}
+
+function saveLocalUploads() {
+  localStorage.setItem('localUploads', JSON.stringify(localUploads));
+}
+
+function renderLocalUploads() {
+  if (!localUploadList) return;
+  if (!localUploads.length) {
+    localUploadList.innerHTML = '<p class="empty-state">Nenhum arquivo adicionado ainda. Use o formulário acima para criar um upload temporário.</p>';
+    return;
+  }
+
+  localUploadList.innerHTML = localUploads
+    .map((file, index) => {
+      return `
+        <article class="upload-item">
+          <div>
+            <h3>${file.title}</h3>
+            <p>${file.description}</p>
+          </div>
+          <div class="upload-meta">
+            <span>${file.category}</span>
+            <span>${file.size}</span>
+          </div>
+          <div class="upload-actions">
+            <a class="btn btn-secondary" href="${file.dataUrl}" download="${file.fileName}">Baixar agora</a>
+            <button class="btn btn-primary" type="button" data-remove="${index}">Remover</button>
+          </div>
+        </article>
+      `;
+    })
+    .join('');
+
+  localUploadList.querySelectorAll('[data-remove]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const index = Number(event.currentTarget.getAttribute('data-remove'));
+      localUploads.splice(index, 1);
+      saveLocalUploads();
+      renderLocalUploads();
+      loadFiles();
+    });
+  });
+}
+
+function loadLocalUploads() {
+  try {
+    localUploads = JSON.parse(localStorage.getItem('localUploads') || '[]');
+  } catch (error) {
+    localUploads = [];
+  }
+}
+
+function formatFileSize(bytes) {
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let value = bytes;
+  let index = 0;
+  while (value >= 1024 && index < units.length - 1) {
+    value /= 1024;
+    index += 1;
+  }
+  return `${value.toFixed(1)} ${units[index]}`;
+}
+
+function initUploads() {
+  if (!uploadForm) return;
+  uploadForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const title = uploadTitle.value.trim();
+    const description = uploadDescription.value.trim();
+    const category = uploadCategory.value.trim();
+    const file = uploadFileInput.files[0];
+
+    if (!title || !description || !category || !file) {
+      alert('Preencha todos os campos e escolha um arquivo.');
+      return;
+    }
+
+    if (file.size > 20 * 1024 * 1024) {
+      alert('O arquivo é muito grande. Escolha um arquivo menor que 20MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      localUploads.unshift({
+        title,
+        description,
+        category,
+        size: formatFileSize(file.size),
+        fileName: file.name,
+        dataUrl: reader.result,
+      });
+      saveLocalUploads();
+      renderLocalUploads();
+      loadFiles();
+      uploadForm.reset();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function initMouseTrail() {
+  window.addEventListener('pointermove', (event) => {
+    const dot = document.createElement('span');
+    dot.className = 'mouse-trail';
+    dot.style.left = `${event.clientX}px`;
+    dot.style.top = `${event.clientY}px`;
+    document.body.appendChild(dot);
+    window.setTimeout(() => dot.remove(), 700);
+  });
 }
 
 function activateRadio(url) {
@@ -206,6 +324,10 @@ if (adminLogout) {
 }
 
 loadAdminState();
+loadLocalUploads();
+renderLocalUploads();
 loadPosts();
 loadFiles();
+initUploads();
 initParallax();
+initMouseTrail();

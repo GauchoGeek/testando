@@ -15,20 +15,26 @@
   <body>
     <div class="page-shell">
       <header class="site-header">
-        <div class="brand">GauchoGeek</div>
-        <nav class="nav-links">
-          <a href="#sobre">Sobre</a>
-          <a href="#radio">Rádio</a>
-          <a href="#artigos">Artigos</a>
-          <a href="#arquivos">Arquivos</a>
-          <a href="#admin">Admin</a>
-          <a href="#contato">Contato</a>
-        </nav>
-      </header>
-
+          <div class="brand">GauchoGeek</div>
+          <nav class="nav-links">
+            <a href="#sobre">Sobre</a>
+            <a href="#radio">Rádio</a>
+            <a href="#upload">Upload</a>
+            <a href="#artigos">Artigos</a>
+            <a href="#arquivos">Arquivos</a>
+            <a href="#admin">Admin</a>
+            <a href="#contato">Contato</a>
+          </nav>
+        </header>
       <main>
         <section class="hero" id="home" aria-label="Apresentação do site">
           <div class="hero-overlay"></div>
+          <div class="hero-layers" aria-hidden="true">
+            <span class="hero-layer layer-1"></span>
+            <span class="hero-layer layer-2"></span>
+            <span class="hero-layer layer-3"></span>
+            <span class="hero-layer layer-4"></span>
+          </div>
           <div class="hero-content">
             <p class="eyebrow">Portfólio profissional em estilo anime</p>
             <h1>Design 4K com tema Itachi</h1>
@@ -78,6 +84,38 @@
               <audio id="audioPlayer" controls></audio>
               <p class="radio-status" id="radioStatus">Cole a stream e clique em tocar para começar.</p>
             </div>
+          </div>
+        </section>
+
+        <section class="upload" id="upload">
+          <div class="section-header">
+            <span>Upload</span>
+            <h2>Envie arquivos direto no navegador</h2>
+          </div>
+          <div class="upload-card">
+            <div class="upload-content">
+              <p>Selecione um arquivo e crie um preview instantâneo para download. Os arquivos ficam disponíveis localmente enquanto esta aba estiver aberta.</p>
+              <form id="uploadForm">
+                <div class="form-row">
+                  <label for="uploadTitle">Título</label>
+                  <input id="uploadTitle" type="text" placeholder="Título do arquivo" required />
+                </div>
+                <div class="form-row">
+                  <label for="uploadDescription">Descrição</label>
+                  <input id="uploadDescription" type="text" placeholder="Descrição do arquivo" required />
+                </div>
+                <div class="form-row">
+                  <label for="uploadCategory">Categoria</label>
+                  <input id="uploadCategory" type="text" placeholder="Categoria" required />
+                </div>
+                <div class="form-row">
+                  <label for="uploadFileInput">Arquivo</label>
+                  <input id="uploadFileInput" type="file" aria-label="Escolher arquivo" required />
+                </div>
+                <button class="btn btn-primary" type="submit">Adicionar arquivo</button>
+              </form>
+            </div>
+            <div id="localUploadList" class="upload-list"></div>
           </div>
         </section>
 

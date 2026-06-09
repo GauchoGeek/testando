@@ -58,38 +58,109 @@ body {
 }
 
 .hero {
-  min-height: 88vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(180deg, rgba(10, 13, 31, 0.88), rgba(3, 6, 14, 0.96));
+  padding: 5rem 2rem;
+  background: radial-gradient(circle at top left, rgba(86, 39, 255, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(255, 85, 132, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(4, 6, 14, 0.92), rgba(2, 3, 8, 0.98));
   background-image: url('../assets/itachi-bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  overflow: hidden;
+  perspective: 1600px;
 }
 
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(255, 85, 132, 0.18), transparent 34%),
-    radial-gradient(circle at left, rgba(64, 159, 255, 0.15), transparent 35%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 40%);
+  pointer-events: none;
 }
 
-.hero-overlay {
+.hero::after {
+  content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(3, 5, 10, 0.52), rgba(2, 3, 7, 0.9));
+  background: radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.08), transparent 10%),
+    radial-gradient(circle at 80% 10%, rgba(109, 130, 255, 0.08), transparent 12%);
+  pointer-events: none;
+}
+
+.hero-layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-layer {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(24px);
+  opacity: 0.48;
+  animation: float 22s ease-in-out infinite;
+}
+
+.hero-layer.layer-1 {
+  left: 10%;
+  top: 8%;
+  background: radial-gradient(circle, rgba(255, 96, 155, 0.95), transparent 48%);
+}
+
+.hero-layer.layer-2 {
+  right: 10%;
+  top: 18%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(96, 193, 255, 0.88), transparent 48%);
+  animation-delay: 4s;
+}
+
+.hero-layer.layer-3 {
+  left: 20%;
+  bottom: 12%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(123, 90, 255, 0.78), transparent 48%);
+  animation-delay: 8s;
+}
+
+.hero-layer.layer-4 {
+  right: 20%;
+  bottom: 6%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(255, 222, 110, 0.78), transparent 48%);
+  animation-delay: 12s;
 }
 
 .hero-content {
   position: relative;
-  max-width: 940px;
-  z-index: 1;
+  max-width: 950px;
+  z-index: 2;
   text-align: left;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease;
+}
+
+.hero-content:hover {
+  transform: translateZ(12px);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 22px, 0);
+  }
 }
 
 .eyebrow {
@@ -190,6 +261,12 @@ body {
   background: rgba(10, 13, 28, 0.8);
   border-radius: 24px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sobre-card:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(2deg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
 }
 
 .sobre-card h3 {
@@ -242,6 +319,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(2deg);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.28);
 }
 
 .post-card .meta {
@@ -307,9 +390,126 @@ body {
 
 .radio,
 .arquivos,
-.admin {
+.admin,
+.upload {
   padding: 4rem 0 2rem;
   background: linear-gradient(180deg, rgba(5, 7, 19, 0.96), rgba(3, 5, 14, 1));
+}
+
+.upload-card {
+  display: grid;
+  gap: 2rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: rgba(8, 10, 22, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+}
+
+.upload-content {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.form-row {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.form-row label {
+  color: #9cb3ff;
+  font-size: 0.95rem;
+}
+
+.upload-card input[type="text"],
+.upload-card input[type="file"] {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 20, 42, 0.96);
+  color: #eef2ff;
+  font-size: 1rem;
+}
+
+.upload-list {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.upload-item {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: rgba(12, 17, 33, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.upload-item:hover {
+  transform: translateY(-8px) perspective(1000px) rotateX(1.6deg);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.22);
+}
+
+.upload-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.upload-item p {
+  margin: 0;
+  color: #d8deff;
+  line-height: 1.7;
+}
+
+.upload-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: #8ca2ff;
+  font-size: 0.9rem;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.upload-actions .btn {
+  min-width: 160px;
+}
+
+.upload-status {
+  color: #9fb6ff;
+}
+
+.mouse-trail {
+  position: fixed;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+  opacity: 0.9;
+  transform: translate(-50%, -50%);
+  animation: trailFade 0.7s ease-out forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4);
+  }
 }
 
 .radio-card,
@@ -322,6 +522,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 28px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.radio-card:hover,
+.admin-card:hover,
+.contato-card:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(1.8deg);
+  box-shadow: 0 30px 78px rgba(0, 0, 0, 0.22);
 }
 
 .radio-card p,
@@ -385,6 +593,12 @@ body {
   background: rgba(12, 16, 30, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.file-card:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(2deg);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.26);
 }
 
 .file-card h3 {

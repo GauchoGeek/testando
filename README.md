@@ -11,6 +11,7 @@ Este repositório contém uma página pessoal moderna e profissional, pronta par
 - `data/files.json` — lista de arquivos compartilhados.
 - `uploads/` — pasta para armazenar arquivos que podem ser baixados no site.
 - `assets/itachi-bg.jpg` — imagem de fundo recomendada para o tema Itachi.
+- `Upload` — nova aba para adicionar arquivos localmente e criar downloads instantâneos.
 
 ## Como publicar no GitHub Pages
 
